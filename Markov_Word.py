@@ -5,7 +5,6 @@ Created on Sun Mar  6 08:46:23 2016
 @author: Carl
 """
 import random
-from nltk.corpus import gutenberg
 
 def generateNModel(text, N):
     dictionary = {}
@@ -54,6 +53,8 @@ def generateText(text, order, length):
         if newWord.endswith('.') and not newWord.istitle():
             break
     return output
-    
-text = gutenberg.raw('austen-emma.txt')
-print(generateText(text,4,2000))
+
+if __name__ == '__main__':
+    from nltk.corpus import gutenberg
+    text = gutenberg.raw('austen-emma.txt')
+    print(generateText(text,4,2000))
