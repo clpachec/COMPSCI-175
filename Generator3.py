@@ -21,5 +21,7 @@ def createText(reviewDictionary, star, numberOfReviews):
 
 if __name__ == '__main__':
     reviewDictionary = pickle.load( open( "reviewDictionary.p", "rb" ) )
-    text = createText(reviewDictionary, '5.0', 10)
+    text = createText(reviewDictionary, '1.0', 1000)
+    print(Markov_Word.generateText(text, 2, 100))
+    print(Markov_Word.generateText(text, 2, 100))
     print(Markov_Word.generateText(text, 2, 100))
