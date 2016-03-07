@@ -16,12 +16,18 @@ def createText(reviewDictionary, star, numberOfReviews):
         product = random.choice(list(reviewDictionary.keys()))
         while star not in reviewDictionary[product]:
             product = random.choice(list(reviewDictionary.keys()))
-        outputText += random.choice(reviewDictionary[product][star])
+        review = random.choice(reviewDictionary[product][star])
+        reviewDictionary[product][star].remove(review)
+        if reviewDictionary[product][star] == []:
+            del reviewDictionary[product][star]
+        outputText += review
     return outputText
 
 if __name__ == '__main__':
     reviewDictionary = pickle.load( open( "reviewDictionary.p", "rb" ) )
-    text = createText(reviewDictionary, '1.0', 1000)
+    text = createText(reviewDictionary, '5.0', 1000)
     print(Markov_Word.generateText(text, 2, 100))
+    print()
     print(Markov_Word.generateText(text, 2, 100))
+    print()
     print(Markov_Word.generateText(text, 2, 100))
