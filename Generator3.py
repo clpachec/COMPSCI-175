@@ -9,17 +9,17 @@ import pickle
 import random
 
 
-def createText(reviewDictionary, star, numberOfReviews):
+def createText(reviewDictionary, rating, numberOfReviews):
     """
     Returns a string representing the reviews of the desire star rating.
 
     Parameters
     ----------
     reviewDictionary : dict{str:dict{str:list}}
-        The formated review dictionary. Has a form of reviewDictionary[product][star] 
+        The formated review dictionary. Has a form of reviewDictionary[product][rating] 
         which will a list of reviews of that nature.
         
-    star: str
+    rating: str
         The star rating wanted
         Has to have a format of "1.0", "2.0", "3.0", "4.0" or "5.0"
         
@@ -45,16 +45,16 @@ def createText(reviewDictionary, star, numberOfReviews):
         product = random.choice(list(reviewDictionary.keys()))
         
         #Make sure product has that star rating available
-        while star not in reviewDictionary[product]:
+        while rating not in reviewDictionary[product]:
             product = random.choice(list(reviewDictionary.keys()))
-        review = random.choice(reviewDictionary[product][star])
+        review = random.choice(reviewDictionary[product][rating])
         
         #Remove review from list to make sure that review is not picked again
-        reviewDictionary[product][star].remove(review) 
+        reviewDictionary[product][rating].remove(review) 
         
         #Delete that rating star key from product if empty
-        if reviewDictionary[product][star] == []: 
-            del reviewDictionary[product][star]
+        if reviewDictionary[product][rating] == []: 
+            del reviewDictionary[product][rating]
         outputText += review
         
     return outputText
@@ -66,17 +66,16 @@ if __name__ == '__main__':
     
     #The desire rating for the generated review.
     #Has to have a format of "1.0", "2.0", "3.0", "4.0" or "5.0"
-    star = "5.0"
+    rating = "1.0"
     
     #The number of review data. The higher the number, the more reviews able to sample
     numberOfReviews = 1000
     
     #Create the sample review text data
-    text = createText(reviewDictionary, star, numberOfReviews)
+    text = createText(reviewDictionary, rating, numberOfReviews)
     
     #The higher the tuple number, the more organic the sentence will be 
     #but the more similar it will be to the original data. 
-    #2 is a good inbetween number of the tuple
     order = 2
     
     #The number of words for each sentence. The generating text will automatically ends
