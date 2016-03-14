@@ -8,10 +8,9 @@ import random
 
 def generateNModel(text, N):
     dictionary = {}
-    splitText = text.split()
-    for i in range(0, len(splitText) - N):
-        fragment = tuple(splitText[i:i+N])
-        next_letter = splitText[i+N]
+    for i in range(0, len(text) - N):
+        fragment = tuple(text[i:i+N])
+        next_letter = text[i+N]
         if fragment not in dictionary:
             dictionary[fragment] = {}
         if next_letter not in dictionary[fragment]:
@@ -32,14 +31,12 @@ def getNextWord(model, fragment):
 
 def generateText(text, order, length):
     model = generateNModel(text, order)
-    print(model)
-    splitText = text.split()
-    randomInteger = random.randint(0, len(splitText) - order)
-    currentFragment = tuple(splitText[randomInteger:randomInteger + order])
+    randomInteger = random.randint(0, len(text) - order)
+    currentFragment = tuple(text[randomInteger:randomInteger + order])
     
-    while not currentFragment[0].istitle():
-        randomInteger = random.randint(0, len(splitText) - order)
-        currentFragment = tuple(splitText[randomInteger:randomInteger + order])
+    while currentFragment[0] == ".":
+        randomInteger = random.randint(0, len(text) - order)
+        currentFragment = tuple(text[randomInteger:randomInteger + order])
         
     output = "" + " ".join(currentFragment)
     for i in range(0, length-order):
@@ -51,11 +48,11 @@ def generateText(text, order, length):
         output += " " + newWord
         currentFragment = currentFragment[1:] + (newWord,)
         
-        if newWord.endswith('.') and not newWord.istitle():
+        if newWord == ".":
             break
     return output
 
 if __name__ == '__main__':
     from nltk.corpus import gutenberg
     text = gutenberg.raw('austen-emma.txt')
-    print(generateText(text,2,2000))
+    print(generateText(text,4,2000))
