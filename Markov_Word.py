@@ -32,7 +32,6 @@ def getNextWord(model, fragment):
 
 def generateText(text, order, length):
     model = generateNModel(text, order)
-    print(model)
     splitText = text.split()
     randomInteger = random.randint(0, len(splitText) - order)
     currentFragment = tuple(splitText[randomInteger:randomInteger + order])
