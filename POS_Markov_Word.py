@@ -7,6 +7,22 @@ Created on Sun Mar  6 08:46:23 2016
 import random
 
 def generateNModel(text, N):
+	"""
+    Create n-gram model of the text given.
+    
+    Parameters
+    ----------
+	text: list
+		The list of POS in order to generate the n-gram model
+    N: int
+        The number of tuple for the n-gram model
+        
+    Returns
+    -------
+    dict
+		dictionary containing the n-gram model
+        
+    """
     dictionary = {}
     for i in range(0, len(text) - N):
         fragment = tuple(text[i:i+N])
@@ -21,6 +37,22 @@ def generateNModel(text, N):
     
 
 def getNextWord(model, fragment):
+	"""
+    Given a n-gram model. Find the next POS based on how many that POS has appeared.
+    
+    Parameters
+    ----------
+	model: dict
+		The n-gram model
+    fragment: tuple
+        The POS to generate the next word
+        
+    Returns
+    -------
+    str
+		The string of the next POS
+        
+    """
     words = []
     if fragment not in model:
         return ""
@@ -30,6 +62,25 @@ def getNextWord(model, fragment):
     return random.choice(words)
 
 def generateText(text, order, length):
+	"""
+    Given the list of POS in order. Will generate a POS based on the markov chain.
+    
+    Parameters
+    ----------
+	text: str
+		The POS to sample
+		
+    order: int
+        The number of tuple which will influence the complexity of the generated text
+    
+	length:int
+		The length of the cutoff for the sentence to generated.
+		
+    Returns
+    -------
+    str
+		The string of the generated POS.
+    """
     model = generateNModel(text, order)
     randomInteger = random.randint(0, len(text) - order)
     currentFragment = tuple(text[randomInteger:randomInteger + order])
@@ -48,11 +99,4 @@ def generateText(text, order, length):
         output += " " + newWord
         currentFragment = currentFragment[1:] + (newWord,)
         
-        if newWord == ".":
-            break
     return output
-
-if __name__ == '__main__':
-    from nltk.corpus import gutenberg
-    text = gutenberg.raw('austen-emma.txt')
-    print(generateText(text,4,2000))

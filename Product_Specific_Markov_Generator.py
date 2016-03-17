@@ -8,6 +8,23 @@ import Markov_Word
 import pickle
 
 def createText(reviewDictionary, productNumber):
+	"""
+    Returns a string representing the reviews of the desire product.
+
+    Parameters
+    ----------
+    reviewDictionary : dict{str:dict{str:list}}
+        The formated review dictionary. Has a form of reviewDictionary[product][rating] 
+        which will a list of reviews of that nature.
+        
+    productNumber: str
+        The product number wanted
+                
+    Returns
+    -------
+    str
+        A combine str of all review in that product
+    """
     outputText = ''
     ratings = ["1.0", "2.0", "3.0", "4.0", "5.0"]
     for rating in ratings:
